@@ -1,5 +1,6 @@
-# dosc.glowingsword.xyz
-## dosc.glowingsword.xyz - что это?
+# dosc.glowingsword.ru
+## dosc.glowingsword.ru - что это?
+
 Публичная база знаний системного администратора. 
 
 Тематика большинства материалов сайта: Linux и серверное ПО, панели управления хостингом и ошибки популярных CMS. Сайт построен на базе mkdocs и mkdocs-material.
