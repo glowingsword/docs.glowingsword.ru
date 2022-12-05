@@ -5,6 +5,7 @@
 
 Больше информации о проекте вы можете найти на  [странице](./about)
 
+Test the github automatic build.
 
 
 ```python title="browserslistrc.py"
