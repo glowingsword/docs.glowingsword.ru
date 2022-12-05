@@ -1,23 +1,11 @@
-beautifulsoup4==4.9.0
-click==7.1.2
-future==0.18.2
-Jinja2==2.11.2
-joblib==0.14.1
-lightgallery @ git+https://github.com/mementum/lightgallery-markdown.git@64a73f3b6994dbd99040581d7a8859b44f7e6b24
-livereload==2.6.1
-lunr==0.5.6
-Markdown==3.2.1
-MarkupSafe==1.1.1
-mkdocs==1.1
-mkdocs-material==5.1.5
-mkdocs-material-extensions==1.0b2
-nltk==3.5
-Pygments==2.6.1
-pymdown-extensions==7.1
-PyYAML==5.3.1
-regex==2020.4.4
-six==1.14.0
-soupsieve==2.0.1
+Markdown
+MarkupSafe
+mkdocs
+mkdocs-material
+mkdocs-material-extensions
+mkdocs-minify-plugin
+mkdocs-redirects
+Pygments
+pymdown-extensions
 tags-macros-plugin @ git+https://github.com/jldiaz/mkdocs-plugin-tags@d26e2f124e4f3471639d426459e281080988fe7a
-tornado==6.0.4
-tqdm==4.46.0
+lightgallery @ git+https://github.com/mementum/lightgallery-markdown.git@64a73f3b6994dbd99040581d7a8859b44f7e6b24
