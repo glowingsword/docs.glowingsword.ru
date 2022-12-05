@@ -1,0 +1,63 @@
+site_name: GlowingSword's KB
+copyright: |
+  Copyright &copy; 2022 <a href="https://github.com/glowingsword"  target="_blank" rel="noopener">GlowingSword</a>
+theme:
+  name: 'material'
+  custom_dir: theme
+  features:
+    - instant
+    - header.autohide
+    - navigation.instant
+  palette:
+    primary: green
+    accent: pink
+  icon:
+    logo: octicons/flame-24
+markdown_extensions:
+  - admonition
+  - codehilite
+  - attr_list
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      base_path: docs/snippets/
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.keys
+  - pymdownx.tilde:
+      smart_delete: true
+  - pymdownx.mark:
+      smart_mark: true
+  - toc:
+      permalink: true
+      baselevel: 2
+      separator: "_"
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - lightgallery
+plugins:
+  - tags
+  - search:
+      lang: ['en','ru']
+      prebuild_index: true
+extra_javascript:
+  - assets/js/mermaid.min.js
+  - assets/js/mermaid_conf.js
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/GlowingSword_AG
+    - icon: fontawesome/brands/telegram
+      link: https://t.me/docs_glowingsword_xyz
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/bzgxnG9
+repo_url: https://github.com/glowingsword/glowingsword.xyz_docs

@@ -1,0 +1,34 @@
+---
+title:  "Разрешаем к сайту доступ только с прокси-серверов DDoS Guard(DDG) и режем подключения с  IP других подсетей"
+authors: 
+ - glowingsword
+tags:
+ - Linux
+ - iptables
+ - ipset
+ - Stormwall
+date: 2021-01-31
+---
+
+# Разрешаем к сайту доступ только с прокси-серверов Stormwall и режем подключения с  IP других подсетей
+
+Указываем переменную с именем нашего домена
+
+```bash
+domain=domain.example
+```
+
+Выполняем
+
+```bash
+iptables -I INPUT 1 -s 185.121.240.0/22 -p tcp -m tcp -m multiport --dports 80,443 -m string --string "${domain}" --algo kmp --to 65535 -j ACCEPT 
+```
+```bash
+iptables -I INPUT 2 -s 188.0.150.0/24 -p tcp -m tcp -m multiport --dports 80,443 -m string --string "${domain}" --algo kmp --to 65535 -j ACCEPT 
+```
+```bash
+iptables -I INPUT 3 -s 193.84.78.0/24 -p tcp -m tcp -m multiport --dports 80,443 -m string --string "${domain}" --algo kmp --to 65535 -j ACCEPT 
+```
+```bash
+iptables -I INPUT 4 -p tcp -m tcp -m multiport --dports 80,443 -m string --string "${domain}" --algo kmp --to 65535 -j DROP
+```
