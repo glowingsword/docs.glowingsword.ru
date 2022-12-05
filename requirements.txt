@@ -8,4 +8,4 @@ mkdocs-redirects
 Pygments
 pymdown-extensions
 tags-macros-plugin @ git+https://github.com/jldiaz/mkdocs-plugin-tags@d26e2f124e4f3471639d426459e281080988fe7a
-lightgallery @ git+https://github.com/turris-cz/markdown-lightbox.git@d3837613caacb88878def43cbb4281cab262263b
+lightgallery @ git+https://github.com/g-provost/lightgallery-markdown.git
