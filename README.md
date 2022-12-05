@@ -1,5 +1,5 @@
-# dosc.glowingsword.ru
-## dosc.glowingsword.ru - что это?
+# docs.glowingsword.ru
+## docs.glowingsword.ru - что это?
 
 Публичная база знаний системного администратора. 
 
