@@ -4,10 +4,3 @@
 На этом сайте собраны статьи, связанные с системным администированием Linux и веб-технологиями.
 
 Больше информации о проекте вы можете найти на  [странице](./about)
-
-Test the github automatic build.
-
-
-```python title="browserslistrc.py"
---8<-- "browserslistrc.py"
-```
