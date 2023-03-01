@@ -1,16 +1,39 @@
+---
+title: 'Замена диска на старых LSI MegaRAID SAS 9265'
+authors: 
+ - glowingsword
+tags:
+ - RAID
+ - LSI
+date: 2023-03-01
+---
+
+# Замена диска на старых LSI MegaRAID SAS 9265
+
+Замена дисков на LSI MegaRAID SAS 9265 имеет одну неприятную особенность, этот контроллер не запускает авто-ребилд при замене диска.
+Ребилд на нём нужно запускать вручную, после замены диска.
+
+## Убеждаемся, что заменённый диск виден
 
 К примеру, мы заменили диск 
 
+```
 Device at Enclosure 21, Slot 3
-
+```
 После замены диска видим
+```
+Firmware state: Unconfigured(good), Spun Up
+```
 
- Firmware state: Unconfigured(good), Spun Up
+## Ищем Slot Number и Physical Disk нашего заменённого диска
 
- смотрим на выхлоп вида
+Cмотрим на результат выполнения команды
+```bash
+megacli -CfgDsply -a0|grep -e 'Slot Number:' -e 'Physical Disk:'
+```
+видим что-то вроде
 
- megacli -CfgDsply -a0|grep -e 'Slot Number:' -e 'Physical Disk:'
-
+```r
 Physical Disk: 0
 Slot Number: 0
 Physical Disk: 1
@@ -34,9 +57,11 @@ Physical Disk: 4
 Slot Number: 10
 Physical Disk: 5
 Slot Number: 11
+```
 
-сопоставляем все диски с одним Physical Disk, группируя по слотам
+Cопоставляем все диски с одним Physical Disk, группируя по слотам
 
+```r
 Physical Disk: 0
 Slot Number: 0
 Slot Number: 6
@@ -59,15 +84,16 @@ Slot Number: 10
 Physical Disk: 5
 Slot Number: 5
 Slot Number: 11
+```
 
 Как видно, у нас 1 диск в Physical Disk: 3, у остальных подключен по два диска(смотрим по слотам).
 
 Делаем
-
-  megacli -CfgDsply -a0|grep -e 'Slot Number' -e 'Drive.* postion: DiskGroup:'
-
+```bash
+megacli -CfgDsply -a0|grep -e 'Slot Number' -e 'Drive.* postion: DiskGroup:'
+```
 Видим что-то вроде
-
+```yaml
 Slot Number: 0
 Drive's postion: DiskGroup: 0, Span: 0, Arm: 0
 Slot Number: 1
@@ -90,42 +116,57 @@ Slot Number: 10
 Drive's postion: DiskGroup: 0, Span: 1, Arm: 4
 Slot Number: 11
 Drive's postion: DiskGroup: 0, Span: 1, Arm: 5
+```
 
 Наш отсутствующий диск имел бы запись
-
+```yaml
 Slot Number: 3
 Drive's postion: DiskGroup: 0, Span: 0, Arm: 3
-
+```
 так как парный ему диск из Span: 1 имеет запись
-
+```yaml
 Drive's postion: DiskGroup: 0, Span: 1, Arm: 3
-
+```
 где DiskGroup и Arm у дисков совпадают, отличается только Span.
 
-Выполняем 
+## Возвращаем диск в Unconfigured(good) на место изъятого диска в настройках контроллера
 
+Выполняем
+
+```bash
 megacli -PdReplaceMissing -PhysDrv[21:3] -array0 -row3 -a0
+```
 
 Если сторонних масивов нет, и новый диск в состоянии Unconfigured(good), вместо PdReplaceMissing, технически, можно выполнить
 
+```bash
 /opt/MegaRAID/storcli/storcli64 /c0/e21/s3 insert dg=0 array=0 row=3
+```
+Эта команда добавляет диск ```/c0/e21/s3``` в ```DiskGroup: 0, Span: 1, Arm: 3```.
 
-Эта команда добавляет диск /c0/e21/s3 в DiskGroup: 0, Span: 1, Arm: 3.
-
-Там такое соответствие параметров получается:
-
+Где у нас получается такое соответствие параметров:
+```r
 dg - DiskGroup
 array – Span
 row – Arm
+```
 
-Запускаем ребилд для диска, полключенного к третьему слоту
+## Запуск ребилда после возвращения диска на место изъятого ранее
 
+Запускаем ребилд для диска, подключенного к третьему слоту
+
+```bash
 megacli -pdrbld -start -physdrv [21:3] -a0
+```
+## Следим за окончанием ребилда
 
 Наблюдаем за прогрессом с помощью
 
-megacli -pdrbld -showprog -physdrv [21:3] -a0
+```bash
+watch -n 3 'megacli -pdrbld -showprog -physdrv [21:3] -a0'
+```
 
+## Дополнительная полезная информация
 https://skeletor.org.ua/?p=4093
 http://erikimh.com/megacli-cheatsheet/
 http://linux-bash.ru/menudisk/113-megacli.html
