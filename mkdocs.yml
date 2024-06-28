@@ -1,6 +1,6 @@
 site_name: GlowingSword's KB
 copyright: |
-  Copyright &copy; 2022 <a href="https://github.com/glowingsword"  target="_blank" rel="noopener">GlowingSword</a>
+  Copyright &copy; 2024 <a href="https://github.com/glowingsword"  target="_blank" rel="noopener">GlowingSword</a>
 theme:
   name: 'material'
   custom_dir: theme
