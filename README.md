@@ -1,5 +1,5 @@
-# docs.glowingsword.me
-## docs.glowingsword.me - что это?
+# docs.glowingsword.top
+## docs.glowingsword.top - что это?
 
 Публичная база знаний системного администратора. 
 
